@@ -1,0 +1,26 @@
+### HOME
+
+GET http://localhost:3000/
+
+### REGISTER USER
+
+POST http://localhost:3000/register/ 
+content-type: application/json
+
+{
+    "first_name": "Arnab",
+    "last_name" : "Chatterjee",
+    "username" : "arnab",
+    "email" : "arnabchatterjee912@gmail.com",
+    "password" : "12345"
+}
+
+### LOGIN 
+
+POST http://localhost:3000/login/ 
+content-type: application/json
+
+{
+    "username" : "arnab",
+    "password" : "12345"
+}
