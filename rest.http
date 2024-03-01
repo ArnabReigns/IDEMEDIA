@@ -4,7 +4,7 @@ GET http://localhost:3000/
 
 ### REGISTER USER
 
-POST http://localhost:3000/register/ 
+POST http://localhost:3000/api/auth/register/
 content-type: application/json
 
 {
