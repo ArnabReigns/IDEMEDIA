@@ -4,8 +4,6 @@ const jwt = require("jsonwebtoken");
 const login = async (req, res) => {
   const { username, password } = req.body;
 
-  
-
   const user = await User.findOne({ username: username });
 
   if (!user)
@@ -33,7 +31,11 @@ const login = async (req, res) => {
 
     // res.setHeader("Set-Cookie", `tlog=${token}; HttpOnly`);
 
-    res.cookie("tlog", token, { httpOnly: true });
+    res.cookie("tlog", token, {
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+    });
     return res.json({
       msg: "log in successful",
       user: user.username,

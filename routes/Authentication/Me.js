@@ -5,6 +5,8 @@ const User = require("../../models/UserModel");
 const me = async (req, res) => {
   const token = req.cookies.tlog;
 
+  console.log(req.cookies);
+  
   if (!token)
     return res.json({
       loggedin: false,
@@ -15,7 +17,10 @@ const me = async (req, res) => {
 
     if (decoded) {
       try {
-        const user = await User.findOne({ username: decoded.username },'-_id -__v -password');
+        const user = await User.findOne(
+          { username: decoded.username },
+          "-_id -__v -password"
+        );
         if (user)
           return res.status(200).json({
             loggedin: true,
