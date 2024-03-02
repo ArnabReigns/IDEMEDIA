@@ -3,7 +3,6 @@ const internalError = require("../../utils/InternalError");
 const sendVerifyEmail = require("./utils/VerifyEmail");
 
 const sendVerificationMail = async (req, res) => {
-  console.log(req.headers.host);
   const { email } = req.body;
 
   try {
@@ -21,7 +20,7 @@ const sendVerificationMail = async (req, res) => {
         msg: "This account has already been activated.",
       });
 
-    sendVerifyEmail(user).then(() =>
+    sendVerifyEmail(user, req.headers.host).then(() =>
       res.json({
         msg: "mail sent successfully",
       })

@@ -3,17 +3,18 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 const ejs = require("ejs");
 
-const sendVerifyEmail = async (data) => {
+const sendVerifyEmail = async (data, baseUrl) => {
   try {
     const token = jwt.sign({ user: data.email }, process.env.SECRET_KEY, {
       expiresIn: "5m",
     });
+    console.log(`${baseUrl}/api/auth/accounts/activation/${token}`);
 
     const html = await ejs.renderFile(
       path.join(__dirname + "/../../../templates/mailVerification.ejs"),
       {
         name: data.first_name,
-        link: `https://camelcase.up.railway.app/api/auth/accounts/activation/${token}`,
+        link: `${baseUrl}/api/auth/accounts/activation/${token}`,
       }
     );
 

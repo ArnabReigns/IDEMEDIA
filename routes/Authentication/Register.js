@@ -31,7 +31,7 @@ const register = async (req, res) => {
 
   // sending email verification mail
 
-  sendVerifyEmail(data)
+  sendVerifyEmail(data, req.headers.host)
     .then(() => {
       return new User({
         first_name: data.first_name,
