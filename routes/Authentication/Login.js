@@ -3,6 +3,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const login = async (req, res) => {
   const { username, password } = req.body;
+
+  
+
   const user = await User.findOne({ username: username });
 
   if (!user)
