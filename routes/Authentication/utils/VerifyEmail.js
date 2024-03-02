@@ -13,7 +13,7 @@ const sendVerifyEmail = async (data) => {
       path.join(__dirname + "/../../../templates/mailVerification.ejs"),
       {
         name: data.first_name,
-        link: `https://idemedia-production.up.railway.app/api/auth/accounts/activation/${token}`,
+        link: `https://camelcase.up.railway.app/api/auth/accounts/activation/${token}`,
       }
     );
 
