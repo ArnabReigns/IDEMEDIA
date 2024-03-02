@@ -4,7 +4,7 @@ const router = Router();
 const login = require("./Login");
 const register = require("./Register");
 const emailVerification = require("./EmailVerification");
-const sendVerificationMail = require("./sendVerificationMail");
+const sendVerificationMail = require("./SendVerificationMail");
 const me = require("./Me");
 
 router.post("/login/", login); // check for password and sets a http only cookie
