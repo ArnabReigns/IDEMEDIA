@@ -3,7 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 var cors = require("cors");
 var cookieParser = require("cookie-parser");
-const AuthRouter = require("./routes/Authentication");
+const AuthRouter = require("./routes/Authentication/index");
 const chalk = require("chalk");
 dotenv.config();
 require("./db");
