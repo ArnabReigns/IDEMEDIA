@@ -43,3 +43,13 @@ GET http://localhost:3000/api/auth/accounts/me
 ### LOGOUT
 
 GET http://localhost:3000/api/auth/logout
+
+
+### SEND EMAIL VERIFICATION
+
+POST  http://localhost:3000/api/auth/accounts/activation/
+Content-Type: application/json
+
+{
+    "email": "arnabchatterjee912@gmail.com"
+}

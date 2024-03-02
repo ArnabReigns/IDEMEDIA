@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.get("/", (req, res) => {
-  return res.send("camelCase API");
+  return res.send("camelCase API at " + req.headers.host);
 });
 
 // authentication routes
@@ -34,5 +34,6 @@ app.use("/api/auth", AuthRouter);
 
 // listener
 app.listen(process.env.PORT || 4000, () => {
+  console.clear();
   console.log(chalk.yellow.bold(`Server started on PORT: ${process.env.PORT}`));
 });

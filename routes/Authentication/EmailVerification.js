@@ -1,3 +1,4 @@
+const chalk = require("chalk");
 const User = require("../../models/UserModel");
 const jwt = require("jsonwebtoken");
 
@@ -9,7 +10,7 @@ const emailVerification = (req, res) => {
       return res.send("Activation Link Expired. Try Again!");
     } else {
       const email = decoded.user;
-      console.log(`${email} activated`);
+      console.log(chalk.green(`${email} is now activated`));
 
       return User.findOneAndUpdate(
         { email: email },

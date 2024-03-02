@@ -3,6 +3,7 @@ const internalError = require("../../utils/InternalError");
 const sendVerifyEmail = require("./utils/VerifyEmail");
 
 const sendVerificationMail = async (req, res) => {
+  console.log(req.headers.host);
   const { email } = req.body;
 
   try {
