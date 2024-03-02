@@ -6,9 +6,9 @@ const me = async (req, res) => {
   const token = req.cookies.tlog;
 
   console.log(req.cookies);
-  
+
   if (!token)
-    return res.json({
+    return res.status(401).json({
       loggedin: false,
     });
 
