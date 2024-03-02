@@ -17,10 +17,29 @@ content-type: application/json
 
 ### LOGIN 
 
-POST http://localhost:3000/login/ 
+POST http://localhost:3000/api/auth/login/ 
 content-type: application/json
 
 {
-    "username" : "arnab",
+    "username" : "arnabreigns",
     "password" : "12345"
 }
+
+### ACTIVATE MAIL
+
+POST  http://localhost:3000/api/auth/accounts/activation/
+Content-Type: application/json
+
+{
+    "email" : "arnabchatterjee912@gmail.com"
+}
+
+
+### ME
+
+GET http://localhost:3000/api/auth/accounts/me
+
+
+### LOGOUT
+
+GET http://localhost:3000/api/auth/logout

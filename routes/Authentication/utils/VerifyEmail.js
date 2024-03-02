@@ -1,4 +1,4 @@
-const transporter = require("../../utils/mail");
+const transporter = require("../../../utils/mail");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 const ejs = require("ejs");
@@ -10,10 +10,10 @@ const sendVerifyEmail = async (data) => {
     });
 
     const html = await ejs.renderFile(
-      path.join(__dirname + "/../../templates/mailVerification.ejs"),
+      path.join(__dirname + "/../../../templates/mailVerification.ejs"),
       {
         name: data.first_name,
-        link: `http://192.168.29.56:3000/api/auth/accounts/activation/${token}`,
+        link: `https://idemedia-production.up.railway.app/api/auth/accounts/activation/${token}`,
       }
     );
 

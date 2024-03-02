@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const transporter = require("../../utils/mail");
 var ejs = require("ejs");
 var path = require("path");
-const sendVerifyEmail = require("./sendEmailVerification");
+const sendVerifyEmail = require("./utils/VerifyEmail");
 
 const register = async (req, res) => {
   const data = req.body;
