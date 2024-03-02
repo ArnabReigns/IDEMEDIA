@@ -13,7 +13,7 @@ router.post("/accounts/activation/", sendVerificationMail); // send a email veri
 router.get("/accounts/activation/:id", emailVerification); // verifies the email and make the user active
 router.get("/accounts/me", me); // verifies the email and make the user active
 router.get("/logout", (req, res) => {
-  res.clearCookie("tlog", { httpOnly: true });
+  res.clearCookie("tlog", { httpOnly: true, sameSite: "none", secure: true });
   res.send({ loggedout: true });
 });
 
