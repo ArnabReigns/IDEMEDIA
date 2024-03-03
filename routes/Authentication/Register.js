@@ -27,11 +27,14 @@ const register = async (req, res) => {
   let userExist = await User.findOne({ username: data.username });
 
   if (userExist)
-    return res.json({ error: true, msg: "username already exists" });
+    return res
+      .status(500)
+      .json({ error: true, msg: "username already exists" });
 
-  userExist = await User.findOne({ email: data.email });
+  userExist = await User.status(409).findOne({ email: data.email });
 
-  if (userExist) return res.json({ error: true, msg: "email already exists" });
+  if (userExist)
+    return res.status(409).json({ error: true, msg: "email already exists" });
 
   // sending email verification mail
 
