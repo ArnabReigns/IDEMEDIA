@@ -5,6 +5,7 @@ var cors = require("cors");
 var cookieParser = require("cookie-parser");
 const AuthRouter = require("./routes/Authentication/index");
 const chalk = require("chalk");
+const auth = require("./middlewares/auth");
 dotenv.config();
 require("./db");
 
@@ -25,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.get("/", (req, res) => {
+app.get("/", auth, (req, res) => {
   return res.send("camelCase API at " + req.headers.host);
 });
 

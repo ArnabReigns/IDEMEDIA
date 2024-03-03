@@ -5,7 +5,6 @@ const User = require("../../models/UserModel");
 const me = async (req, res) => {
   const token = req.cookies.tlog;
 
-  console.log(req.cookies);
 
   if (!token)
     return res.status(401).json({

@@ -8,8 +8,7 @@ const sendVerifyEmail = async (data, baseUrl) => {
     const token = jwt.sign({ user: data.email }, process.env.SECRET_KEY, {
       expiresIn: "5m",
     });
-    console.log(`${baseUrl}/api/auth/accounts/activation/${token}`);
-
+    
     const html = await ejs.renderFile(
       path.join(__dirname + "/../../../templates/mailVerification.ejs"),
       {
