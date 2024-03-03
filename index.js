@@ -6,6 +6,7 @@ var cookieParser = require("cookie-parser");
 const AuthRouter = require("./routes/Authentication/index");
 const chalk = require("chalk");
 const auth = require("./middlewares/auth");
+const required = require("./utils/required");
 dotenv.config();
 require("./db");
 
@@ -26,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.get("/", auth, (req, res) => {
+app.get("/", [auth, required([1, 2, 3])], (req, res) => {
   return res.send("camelCase API at " + req.headers.host);
 });
 
