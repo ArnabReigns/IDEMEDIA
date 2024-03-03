@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.get("/", [auth, required([1, 2, 3])], (req, res) => {
+app.get("/", [auth], (req, res) => {
   return res.send("camelCase API at " + req.headers.host);
 });
 

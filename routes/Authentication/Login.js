@@ -15,6 +15,7 @@ const login = async (req, res) => {
     return res.status(400).json({
       inactive: true,
       msg: "email not verified",
+      email: user.email,
     });
 
   const matched = await bcrypt.compare(password, user.password);
