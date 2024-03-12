@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 // Define the Post schema
 const postSchema = new mongoose.Schema({
   img: String,
+  username: String,
   caption: String,
   likes: { type: Number, default: 0 },
   Shares: { type: Number, default: 0 },

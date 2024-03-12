@@ -10,10 +10,8 @@ router.post("/create-new", required(["username"]), async (req, res) => {
   const { caption, img, username } = req.body;
 
   try {
-    
     await new Posts({ caption, img, username }).save();
     return res.status(201).json({ message: "Post Uploaded" });
-
   } catch (e) {
     internalError(res);
   }
