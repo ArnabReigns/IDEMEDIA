@@ -7,6 +7,7 @@ const router = Router();
 router.get("/get-all", async (req, res) => {
   try {
     const posts = await Posts.find({})
+      .sort({ date: -1 })
       .populate("user", "-password -__v")
       .exec();
     return res.json({ posts });
@@ -22,7 +23,7 @@ router.post("/create-new", required(["user"]), async (req, res) => {
     await new Posts({ caption, img, user }).save();
     return res.status(201).json({ message: "Post Uploaded" });
   } catch (e) {
-    console.log(e)
+    console.log(e);
     internalError(res);
   }
 });
