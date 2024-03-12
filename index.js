@@ -15,11 +15,7 @@ require("./db");
 app.use(
   cors({
     credentials: true,
-    origin: [
-      "http://localhost:5173",
-      "https://camelcase.vercel.app",
-      "192.168.29.178:5173",
-    ],
+    origin: ["http://localhost:5173", "https://camelcase.vercel.app"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );

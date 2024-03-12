@@ -30,9 +30,7 @@ const login = async (req, res) => {
       }
     );
 
-    // res.setHeader("Set-Cookie", `tlog=${token}; HttpOnly`);
-
-    res.cookie("tlog", token, {
+s    res.cookie("tlog", token, {
       httpOnly: true,
       sameSite: "none",
       secure: true,

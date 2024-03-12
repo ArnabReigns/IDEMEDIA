@@ -14,9 +14,6 @@ const postSchema = new mongoose.Schema({
   comments: [{ author: String, comment: String, date: Date }],
 });
 
-postSchema.pre("save", async function (next) {
-  next();
-});
-
 const Posts = mongoose.model("Post", postSchema);
+
 module.exports = Posts;
