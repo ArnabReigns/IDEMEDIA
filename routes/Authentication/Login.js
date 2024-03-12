@@ -30,7 +30,7 @@ const login = async (req, res) => {
       }
     );
 
-s    res.cookie("tlog", token, {
+    res.cookie("tlog", token, {
       httpOnly: true,
       sameSite: "none",
       secure: true,
