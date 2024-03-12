@@ -6,20 +6,23 @@ const router = Router();
 
 router.get("/get-all", async (req, res) => {
   try {
-    const posts = await Posts.find({});
+    const posts = await Posts.find({})
+      .populate("user", "-password -__v")
+      .exec();
     return res.json({ posts });
   } catch (e) {
     internalError(res);
   }
 });
 
-router.post("/create-new", required(["username"]), async (req, res) => {
-  const { caption, img, username } = req.body;
+router.post("/create-new", required(["user"]), async (req, res) => {
+  const { caption, img, user } = req.body;
 
   try {
-    await new Posts({ caption, img, username }).save();
+    await new Posts({ caption, img, user }).save();
     return res.status(201).json({ message: "Post Uploaded" });
   } catch (e) {
+    console.log(e)
     internalError(res);
   }
 });

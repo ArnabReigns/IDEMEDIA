@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
 
 // Define the Post schema
 const postSchema = new mongoose.Schema({
   img: String,
   username: String,
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   caption: String,
   likes: { type: Number, default: 0 },
   Shares: { type: Number, default: 0 },
@@ -16,5 +16,4 @@ const postSchema = new mongoose.Schema({
 });
 
 const Posts = mongoose.model("Post", postSchema);
-
 module.exports = Posts;

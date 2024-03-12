@@ -20,7 +20,7 @@ const me = async (req, res) => {
       try {
         const user = await User.findOne(
           { username: decoded.username },
-          "-_id -__v -password"
+          "-__v -password"
         );
         if (user)
           return res.status(200).json({
