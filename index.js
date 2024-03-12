@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 var cors = require("cors");
 var cookieParser = require("cookie-parser");
 const AuthRouter = require("./routes/Authentication/index");
+const PostRouter = require("./routes/Posts/index");
 const chalk = require("chalk");
 const auth = require("./middlewares/auth");
 const required = require("./utils/required");
@@ -14,7 +15,11 @@ require("./db");
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:5173", "https://camelcase.vercel.app"],
+    origin: [
+      "http://localhost:5173",
+      "https://camelcase.vercel.app",
+      "192.168.29.178:5173",
+    ],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
@@ -33,6 +38,9 @@ app.get("/", [auth], (req, res) => {
 
 // authentication routes
 app.use("/api/auth", AuthRouter);
+
+// post routes
+app.use("/api/posts", PostRouter);
 
 // listener
 app.listen(process.env.PORT || 4000, () => {

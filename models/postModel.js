@@ -7,7 +7,10 @@ const postSchema = new mongoose.Schema({
   caption: String,
   likes: { type: Number, default: 0 },
   Shares: { type: Number, default: 0 },
-  date: Date.now,
+  date: {
+    type: Date,
+    default: Date.now,
+  },
   comments: [{ author: String, comment: String, date: Date }],
 });
 
@@ -15,5 +18,5 @@ postSchema.pre("save", async function (next) {
   next();
 });
 
-const User = mongoose.model("Post", postSchema);
-module.exports = User;
+const Posts = mongoose.model("Post", postSchema);
+module.exports = Posts;
