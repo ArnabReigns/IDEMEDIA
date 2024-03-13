@@ -6,7 +6,11 @@ const Search = async (req, res) => {
     let query = req.body.query;
     const regex = new RegExp(query, "i");
     const users = await User.find({
-      username: { $regex: regex },
+      $or: [
+        { username: { $regex: regex } },
+        { first_name: { $regex: regex } },
+        { last_name: { $regex: regex } },
+      ],
       isActive: true,
     });
 
