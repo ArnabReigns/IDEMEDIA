@@ -31,6 +31,9 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  followers: [mongoose.Schema.Types.ObjectId],
+  following: [mongoose.Schema.Types.ObjectId],
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
 });
 
 userSchema.pre("save", async function (next) {

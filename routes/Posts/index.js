@@ -2,6 +2,7 @@ const { Router } = require("express");
 const Posts = require("../../models/postModel");
 const required = require("../../utils/required");
 const internalError = require("../../utils/InternalError");
+const User = require("../../models/UserModel");
 const router = Router();
 
 router.get("/get-all", async (req, res) => {
@@ -20,8 +21,14 @@ router.post("/create-new", required(["user"]), async (req, res) => {
   const { caption, img, user } = req.body;
 
   try {
-    await new Posts({ caption, img, user }).save();
-    return res.status(201).json({ message: "Post Uploaded" });
+    const owner = await User.findOne({ _id: user });
+
+    if (owner) {
+      const new_post = await new Posts({ caption, img, user }).save();
+      owner.posts.push(new_post._id);
+      await owner.save();
+      return res.status(201).json({ message: "Post Uploaded" });
+    }
   } catch (e) {
     console.log(e);
     internalError(res);

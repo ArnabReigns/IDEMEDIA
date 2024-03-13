@@ -8,6 +8,8 @@ const PostRouter = require("./routes/Posts/index");
 const chalk = require("chalk");
 const auth = require("./middlewares/auth");
 const required = require("./utils/required");
+const Posts = require("./models/postModel");
+const User = require("./models/UserModel");
 dotenv.config();
 require("./db");
 
