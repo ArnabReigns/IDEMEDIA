@@ -5,9 +5,6 @@ const User = require("../../models/UserModel");
 const me = async (req, res) => {
   const token = req.cookies.tlog;
 
-  console.log(token);
-  
-
   if (!token)
     return res.status(401).json({
       loggedin: false,
@@ -21,7 +18,14 @@ const me = async (req, res) => {
         const user = await User.findOne(
           { username: decoded.username },
           "-__v -password"
-        );
+        )
+          .populate(
+            "followers following",
+            "-password -followers -following -posts"
+          )
+          .populate("posts")
+          .exec();
+
         if (user)
           return res.status(200).json({
             loggedin: true,
