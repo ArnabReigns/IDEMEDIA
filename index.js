@@ -38,7 +38,7 @@ app.get("/", [auth], (req, res) => {
 app.use("/api/auth", AuthRouter);
 
 // post routes
-app.use("/api/posts", PostRouter);
+app.use("/api/posts", [auth], PostRouter);
 
 // listener
 app.listen(process.env.PORT || 4000, () => {
