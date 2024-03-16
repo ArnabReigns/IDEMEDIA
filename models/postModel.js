@@ -6,15 +6,17 @@ const postSchema = new mongoose.Schema({
   username: String,
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   caption: String,
-  likes: { type: Number, default: 0 },
+  likes: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    default: [],
+  },
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   Shares: { type: Number, default: 0 },
   date: {
     type: Date,
     default: Date.now,
   },
-  comments: [{ author: String, comment: String, date: Date }],
 });
 
 const Posts = mongoose.model("Post", postSchema);
 module.exports = Posts;
-

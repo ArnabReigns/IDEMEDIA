@@ -8,8 +8,7 @@ const PostRouter = require("./routes/Posts/index");
 const chalk = require("chalk");
 const auth = require("./middlewares/auth");
 const required = require("./utils/required");
-const Posts = require("./models/postModel");
-const User = require("./models/UserModel");
+const fix = require("./fix");
 dotenv.config();
 require("./db");
 
@@ -34,11 +33,16 @@ app.get("/", [auth], (req, res) => {
   return res.send("camelCase API at " + req.headers.host);
 });
 
+app.get("/api/fix", fix);
+
 // authentication routes
 app.use("/api/auth", AuthRouter);
 
+// get current user
+app.use(auth);
+
 // post routes
-app.use("/api/posts", [auth], PostRouter);
+app.use("/api/posts", PostRouter);
 
 // listener
 app.listen(process.env.PORT || 4000, () => {

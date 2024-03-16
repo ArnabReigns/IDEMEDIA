@@ -30,4 +30,5 @@ router.get("/logout", (req, res) => {
 
 router.post("/search", Search); // verifies the email and make the user active
 
+
 module.exports = router;
