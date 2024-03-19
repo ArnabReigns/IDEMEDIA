@@ -12,6 +12,11 @@ router.get("/get-all", async (req, res) => {
     const posts = await Posts.find({})
       .sort({ date: -1 })
       .populate("user", "-password -__v")
+      .populate("likes", "-posts -followers -following -liked_posts -password")
+      .populate({
+        path: "comments",
+        populate: "replies",
+      })
       .exec();
     return res.json({ posts });
   } catch (e) {
