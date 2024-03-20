@@ -27,7 +27,6 @@ const GetPost = async (req, res) => {
         ],
       })
       .exec();
-    console.log(post);
     const comments = await Comment.find({ post_id: post_id });
     return res.json({ post, total_comment: comments.length });
   } catch (e) {
