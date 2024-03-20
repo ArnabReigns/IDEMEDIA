@@ -3,6 +3,12 @@ const bcrypt = require("bcrypt");
 
 // Define the User schema
 const userSchema = new mongoose.Schema({
+  profile_pic: {
+    type: String,
+  },
+  bg_pic: {
+    type: String,
+  },
   first_name: {
     type: String,
   },
