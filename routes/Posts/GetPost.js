@@ -8,7 +8,21 @@ const GetPost = async (req, res) => {
       .populate("likes", "-posts -followers -following -liked_posts -password")
       .populate({
         path: "comments",
-        populate: "replies",
+        populate: [
+          {
+            path: "replies",
+            populate: {
+              path: "commentator",
+              select:
+                "-posts -followers -following -liked_posts -password -posts",
+            },
+          },
+          {
+            path: "commentator",
+            select:
+              "-posts -followers -following -liked_posts -password -posts",
+          },
+        ],
       })
       .exec();
     return res.json(post);

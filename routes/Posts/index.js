@@ -19,24 +19,6 @@ router.get("/get-all", async (req, res) => {
         "likes",
         "-posts -followers -following -liked_posts -password -posts"
       )
-      .populate({
-        path: "comments",
-        populate: [
-          {
-            path: "replies",
-            populate: {
-              path: "commentator",
-              select:
-                "-posts -followers -following -liked_posts -password -posts",
-            },
-          },
-          {
-            path: "commentator",
-            select:
-              "-posts -followers -following -liked_posts -password -posts",
-          },
-        ],
-      })
       .exec();
     return res.json({ posts });
   } catch (e) {
