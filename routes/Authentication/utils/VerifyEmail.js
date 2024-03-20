@@ -13,7 +13,7 @@ const sendVerifyEmail = async (data, baseUrl) => {
       path.join(__dirname + "/../../../templates/mailVerification.ejs"),
       {
         name: data.first_name,
-        link: `${baseUrl}/api/auth/accounts/activation/${token}`,
+        link: `http://localhost:3000/api/auth/accounts/activation/${token}`,
       }
     );
 

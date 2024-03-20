@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const server = require("http").createServer(app);
+const { Server } = require("socket.io");
 const dotenv = require("dotenv");
 var cors = require("cors");
 var cookieParser = require("cookie-parser");
@@ -21,6 +23,20 @@ app.use(
   })
 );
 
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("user connected");
+
+  socket.on("disconnect", function () {
+    console.log("user disconnected");
+  });
+});
+
 // cookie parser
 app.use(cookieParser());
 
@@ -30,6 +46,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.get("/", [auth], (req, res) => {
+  io.emit("hi", { activated: true });
   return res.send("camelCase API at " + req.headers.host);
 });
 
@@ -45,7 +62,7 @@ app.use(auth);
 app.use("/api/posts", PostRouter);
 
 // listener
-app.listen(process.env.PORT || 4000, () => {
+server.listen(process.env.PORT || 4000, () => {
   console.clear();
   console.log(chalk.yellow.bold(`Server started on PORT: ${process.env.PORT}`));
 });

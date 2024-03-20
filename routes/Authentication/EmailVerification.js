@@ -22,9 +22,12 @@ const emailVerification = (req, res) => {
         }
       )
         .then((r) => {
-          return res.redirect("http://localhost:5173/");
+          res.send("Your Account is Activated! Now you can close this window.");
         })
-        .catch((e) => res.send("Error Occured"));
+        .catch((e) => {
+          console.log(e);
+          res.send("Error Occured");
+        });
     }
   });
 };

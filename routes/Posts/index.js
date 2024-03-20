@@ -9,12 +9,19 @@ const DeletePost = require("./deletetPost");
 const router = Router();
 
 router.get("/get-all", async (req, res) => {
-  console.log(req.user.following);
+  console.log(req.user?.following);
   try {
     const posts = await Posts.find({
-      user: {
-        $in: req.user.following,
-      },
+      $or: [
+        {
+          user: {
+            $in: req.user.following,
+          },
+        },
+        {
+          user: req.user._id,
+        },
+      ],
     })
       .sort({ date: -1 })
       .populate(
