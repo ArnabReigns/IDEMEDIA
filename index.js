@@ -29,6 +29,11 @@ const io = new Server(server, {
   },
 });
 
+app.use((req, res, next) => {
+  req.io = io;
+  return next();
+});
+
 io.on("connection", (socket) => {
   console.log("user connected");
 
@@ -66,3 +71,4 @@ server.listen(process.env.PORT || 4000, () => {
   console.clear();
   console.log(chalk.yellow.bold(`Server started on PORT: ${process.env.PORT}`));
 });
+

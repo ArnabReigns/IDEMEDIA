@@ -1,7 +1,7 @@
 const Comment = require("./models/CommentModel");
 const Posts = require("./models/postModel");
 
-module.exports = async (req, res) => {
+const deleteAllCommentes = async (req, res) => {
   try {
     await deleteAllComments();
     res.send("fixed");
@@ -15,3 +15,9 @@ async function deleteAllComments() {
   await Comment.deleteMany({});
   await Posts.updateMany({}, { comments: [] });
 }
+
+const webs = (req, res) => {
+  res.send("done");
+};
+
+module.exports = webs;

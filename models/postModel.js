@@ -7,6 +7,7 @@ const postSchema = new mongoose.Schema({
   username: String,
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   caption: String,
+  type: { type: String, default: "Media" },
   likes: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     default: [],
@@ -18,7 +19,6 @@ const postSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-
 
 // Middleware to delete associated comments before removing the post
 postSchema.pre("remove", async function (next) {
