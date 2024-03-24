@@ -17,7 +17,7 @@ async function deleteAllComments() {
 }
 
 const webs = (req, res) => {
-  res.send("done");
+  Posts.updateMany({}, { type: "Media" }).then((e) => res.send("done"));
 };
 
 module.exports = webs;
