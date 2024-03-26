@@ -8,6 +8,10 @@ const Profile = async (req, res) => {
   try {
     const user = await User.findOne({ username: username }, "-__v -password")
       .populate("posts")
+      .populate(
+        "followers following",
+        "_id first_name last_name username email profile_pic"
+      )
       .exec();
     if (user)
       return res.status(200).json({

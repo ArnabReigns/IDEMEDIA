@@ -5,12 +5,14 @@ const { Server } = require("socket.io");
 const dotenv = require("dotenv");
 var cors = require("cors");
 var cookieParser = require("cookie-parser");
+const auth = require("./middlewares/auth");
+const fix = require("./fix");
+const chalk = require("chalk");
+
 const AuthRouter = require("./routes/Authentication/index");
 const PostRouter = require("./routes/Posts/index");
-const chalk = require("chalk");
-const auth = require("./middlewares/auth");
-const required = require("./utils/required");
-const fix = require("./fix");
+const ProfileRouter = require("./routes/Profile");
+
 dotenv.config();
 require("./db");
 
@@ -34,14 +36,6 @@ app.use((req, res, next) => {
   return next();
 });
 
-io.on("connection", (socket) => {
-  console.log("user connected");
-
-  socket.on("disconnect", function () {
-    console.log("user disconnected");
-  });
-});
-
 // cookie parser
 app.use(cookieParser());
 
@@ -51,20 +45,15 @@ app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.get("/", [auth], (req, res) => {
-  io.emit("hi", { activated: true });
   return res.send("camelCase API at " + req.headers.host);
 });
 
 app.get("/api/fix", fix);
-
-// authentication routes
 app.use("/api/auth", AuthRouter);
 
-// get current user
 app.use(auth);
-
-// post routes
 app.use("/api/posts", PostRouter);
+app.use("/api/profile", ProfileRouter);
 
 // listener
 server.listen(process.env.PORT || 4000, () => {
@@ -72,3 +61,17 @@ server.listen(process.env.PORT || 4000, () => {
   console.log(chalk.yellow.bold(`Server started on PORT: ${process.env.PORT}`));
 });
 
+// websocket
+
+io.on("connection", (socket) => {
+  console.log("user connected");
+
+  socket.on("setup", (id) => {
+    socket.join(id); // join the room with user _id
+    socket.emit("connected");
+  });
+
+  socket.on("disconnect", function () {
+    console.log("user disconnected");
+  });
+});
