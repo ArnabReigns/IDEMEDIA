@@ -12,6 +12,8 @@ const chalk = require("chalk");
 const AuthRouter = require("./routes/Authentication/index");
 const PostRouter = require("./routes/Posts/index");
 const ProfileRouter = require("./routes/Profile");
+const NotificationRouter = require("./routes/Notifications");
+
 
 dotenv.config();
 require("./db");
@@ -54,6 +56,8 @@ app.use("/api/auth", AuthRouter);
 app.use(auth);
 app.use("/api/posts", PostRouter);
 app.use("/api/profile", ProfileRouter);
+app.use("/api/notifications", NotificationRouter);
+
 
 // listener
 server.listen(process.env.PORT || 4000, () => {
