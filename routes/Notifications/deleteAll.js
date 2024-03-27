@@ -1,5 +1,4 @@
 const Notifications = require("../../models/NotificationModel");
-const internalError = require("../../utils/InternalError");
 
 const deleteAll = (req, res) => {
   const { user_id } = req.body;

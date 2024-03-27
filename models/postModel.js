@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Comment = require("./CommentModel");
+const Notifications = require("./NotificationModel");
 
 // Define the Post schema
 const postSchema = new mongoose.Schema({
@@ -20,14 +21,17 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-// Middleware to delete associated comments before removing the post
-postSchema.pre("remove", async function (next) {
+postSchema.post("findOneAndDelete", async function (doc) {
+  const id = doc._id;
+  console.log(id);
   try {
-    // Remove all comments associated with this post
-    await Comment.deleteMany({ _id: { $in: this.comments } });
-    next();
+    await Comment.deleteMany({ _id: { $in: doc.comments } });
+    await Notifications.deleteMany({
+      type: "like_post",
+      "data.post.id": id,
+    });
   } catch (error) {
-    next(error);
+    console.log(error);
   }
 });
 

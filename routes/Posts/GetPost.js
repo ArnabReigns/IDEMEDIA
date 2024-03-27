@@ -1,5 +1,7 @@
 const Comment = require("../../models/CommentModel");
 const Posts = require("../../models/postModel");
+const internalError = require("../../utils/InternalError");
+
 
 const GetPost = async (req, res) => {
   const post_id = req.query.id;
