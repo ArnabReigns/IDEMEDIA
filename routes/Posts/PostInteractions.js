@@ -41,10 +41,12 @@ const handleLikes = async (req, res) => {
         req.io,
         {
           title: `${owner.username} liked your post`,
-          desc: "",
           user: post.user._id,
-          type: "like",
-          data: { post_id: post._id, post_url: post.img },
+          type: "like_post",
+          data: {
+            post: { id: post._id, url: post.img },
+            liked_by: { username: owner.userame, id: owner._id },
+          },
         },
         {
           roomNames: [post.user._id.toString()],
