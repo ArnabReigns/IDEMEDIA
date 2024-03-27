@@ -44,7 +44,7 @@ const handleLikes = async (req, res) => {
           desc: "",
           user: post.user._id,
           type: "like",
-          data: { post_id: post._id },
+          data: { post_id: post._id, post_url: post.img },
         },
         {
           roomNames: [post.user._id.toString()],
