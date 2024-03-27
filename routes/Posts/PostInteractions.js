@@ -45,7 +45,11 @@ const handleLikes = async (req, res) => {
           type: "like_post",
           data: {
             post: { id: post._id, url: post.img },
-            liked_by: owner,
+            liked_by: {
+              username: owner?.username,
+              profile_pic: owner?.profile_pic,
+              id: owner?._id,
+            },
           },
         },
         {
