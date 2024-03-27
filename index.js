@@ -14,7 +14,6 @@ const PostRouter = require("./routes/Posts/index");
 const ProfileRouter = require("./routes/Profile");
 const NotificationRouter = require("./routes/Notifications");
 
-
 dotenv.config();
 require("./db");
 
@@ -58,7 +57,6 @@ app.use("/api/posts", PostRouter);
 app.use("/api/profile", ProfileRouter);
 app.use("/api/notifications", NotificationRouter);
 
-
 // listener
 server.listen(process.env.PORT || 4000, () => {
   console.clear();
@@ -70,9 +68,9 @@ server.listen(process.env.PORT || 4000, () => {
 io.on("connection", (socket) => {
   console.log("user connected");
 
-  socket.on("setup", (id) => {
+  socket.on("setup", ({ id }) => {
     socket.join(id); // join the room with user _id
-    socket.emit("connected");
+    socket.emit("connected", "you are connected to a private room : " + id);
   });
 
   socket.on("disconnect", function () {

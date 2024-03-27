@@ -1,12 +1,14 @@
 const internalError = require("../../utils/InternalError");
 const Posts = require("../../models/postModel");
 const Comment = require("../../models/CommentModel");
+const notify = require("../Notifications/utils/Notify");
 
 async function like(owner, post) {
   post.likes.push(owner._id);
   owner.liked_posts.push(post._id);
   await owner.save();
   await post.save();
+
   return {
     msg: `post_${post._id} is liked by ${owner?.username}`,
   };
@@ -29,15 +31,28 @@ async function unlike(owner, post) {
 
 const handleLikes = async (req, res) => {
   const post_id = req.body.post_id;
-  console.log(post_id);
   try {
     const post = await Posts.findById(post_id);
-    console.log(post);
     const owner = req.user;
-
-    if (post.likes.includes(owner._id))
+    if (post.likes.includes(owner._id)) {
       return res.json(await unlike(owner, post));
-    else return res.json(await like(owner, post));
+    } else {
+      notify(
+        req.io,
+        {
+          title: `${owner.username} liked your post`,
+          desc: "",
+          user: post.user._id,
+          type: "like",
+          data: { post_id: post._id },
+        },
+        {
+          roomNames: [post.user._id.toString()],
+          emitName: "notification",
+        }
+      );
+      return res.json(await like(owner, post));
+    }
   } catch (e) {
     console.log(e);
     return internalError(res);

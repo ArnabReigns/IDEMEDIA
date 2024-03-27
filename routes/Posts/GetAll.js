@@ -2,7 +2,6 @@ const Posts = require("../../models/postModel");
 const internalError = require("../../utils/InternalError");
 
 const getAll = async (req, res) => {
-  console.log(req.user?.following);
   try {
     const posts = await Posts.find({
       $or: [

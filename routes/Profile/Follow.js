@@ -12,7 +12,6 @@ const toggleFollow = async (req, res) => {
       return res.json(await unfollow(owner, user));
     else return res.json(await follow(owner, user));
   } catch (e) {
-    console.log(e);
     return internalError(res);
   }
 };

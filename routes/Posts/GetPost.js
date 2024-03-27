@@ -3,7 +3,6 @@ const Posts = require("../../models/postModel");
 
 const GetPost = async (req, res) => {
   const post_id = req.query.id;
-  console.log(post_id);
 
   try {
     const post = await Posts.findById(post_id)
