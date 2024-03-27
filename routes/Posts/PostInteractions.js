@@ -37,26 +37,28 @@ const handleLikes = async (req, res) => {
     if (post.likes.includes(owner._id)) {
       return res.json(await unlike(owner, post));
     } else {
-      notify(
-        req.io,
-        {
-          title: `${owner.username} liked your post`,
-          user: post.user._id,
-          type: "like_post",
-          data: {
-            post: { id: post._id, url: post.img },
-            liked_by: {
-              username: owner?.username,
-              profile_pic: owner?.profile_pic,
-              id: owner?._id,
+      if (owner._id.toString() == post.user._id.toString()) return;
+      else
+        notify(
+          req.io,
+          {
+            title: `${owner.username} liked your post`,
+            user: post.user._id,
+            type: "like_post",
+            data: {
+              post: { id: post._id, url: post.img },
+              liked_by: {
+                username: owner?.username,
+                profile_pic: owner?.profile_pic,
+                id: owner?._id,
+              },
             },
           },
-        },
-        {
-          roomNames: [post.user._id.toString()],
-          emitName: "notification",
-        }
-      );
+          {
+            roomNames: [post.user._id.toString()],
+            emitName: "notification",
+          }
+        );
       return res.json(await like(owner, post));
     }
   } catch (e) {
