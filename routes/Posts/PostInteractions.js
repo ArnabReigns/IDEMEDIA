@@ -37,8 +37,7 @@ const handleLikes = async (req, res) => {
     if (post.likes.includes(owner._id)) {
       return res.json(await unlike(owner, post));
     } else {
-      if (owner._id.toString() == post.user._id.toString()) return;
-      else
+      if (owner._id.toString() != post.user._id.toString())
         notify(
           req.io,
           {

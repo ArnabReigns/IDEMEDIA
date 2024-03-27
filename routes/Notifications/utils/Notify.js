@@ -1,7 +1,7 @@
 const Notifications = require("../../../models/NotificationModel");
 
 const notify = (
-    io,
+  io,
   { title, desc, user, type, data, ...rest },
   { roomNames, emitName }
 ) => {
@@ -18,7 +18,7 @@ const notify = (
       roomNames.forEach((room) => {
         io.to(room).emit(emitName, e);
       });
-      console.log("notification saved and send");
+      console.log("notification saved and send to: " + user);
     })
     .catch((err) => console.log(err));
 };

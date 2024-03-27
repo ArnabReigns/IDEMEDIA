@@ -9,6 +9,7 @@ const getAllNotifications = (req, res) => {
   Notifications.find({
     user: user_id,
   })
+    .sort({ date: -1 })
     .then((data) =>
       res.json({
         notifications: data,
