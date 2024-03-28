@@ -10,7 +10,6 @@ const emailVerification = (req, res) => {
       return res.send("Activation Link Expired. Try Again!");
     } else {
       const email = decoded.user;
-      console.log(chalk.green(`${email} is now activated`));
 
       return User.findOneAndUpdate(
         { email: email },
@@ -22,7 +21,22 @@ const emailVerification = (req, res) => {
         }
       )
         .then((r) => {
-          res.send("Your Account is Activated! Now you can close this window.");
+          console.log(chalk.green(`${email} is now activated`));
+
+          const token = jwt.sign(
+            { username: r.username },
+            process.env.SECRET_KEY,
+            {
+              expiresIn: "7d",
+            }
+          );
+
+          res.cookie("tlog", token, {
+            httpOnly: true,
+            sameSite: "none",
+            secure: true,
+          });
+          res.redirect("https://camelcase.vercel.app/");
         })
         .catch((e) => {
           console.log(e);

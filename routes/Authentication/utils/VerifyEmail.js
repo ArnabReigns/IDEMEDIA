@@ -8,12 +8,16 @@ const sendVerifyEmail = async (data, baseUrl) => {
     const token = jwt.sign({ user: data.email }, process.env.SECRET_KEY, {
       expiresIn: "5m",
     });
-    
+
     const html = await ejs.renderFile(
       path.join(__dirname + "/../../../templates/mailVerification.ejs"),
       {
         name: data.first_name,
-        link: `http://localhost:3000/api/auth/accounts/activation/${token}`,
+        link: `${
+          process.env.PROD == "false"
+            ? "http://localhost:3000"
+            : "https://camelcase.onrender.com"
+        }/api/auth/accounts/activation/${token}`,
       }
     );
 
