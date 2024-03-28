@@ -32,7 +32,7 @@ const emailVerification = (req, res) => {
           );
 
           res.cookie("tlog", token, {
-            expires: new Date(Date.now() + 7 * 24 * 60 * 60),
+            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
             httpOnly: true,
             sameSite: "none",
             secure: true,
