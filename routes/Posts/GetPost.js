@@ -8,7 +8,7 @@ const GetPost = async (req, res) => {
 
   try {
     const post = await Posts.findById(post_id)
-      .populate("likes", "-posts -followers -following -liked_posts -password")
+      .populate("likes", "-posts -followers -following -liked_posts -password").populate('user')
       .populate({
         path: "comments",
         populate: [
