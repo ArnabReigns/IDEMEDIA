@@ -1,5 +1,5 @@
-const internalError = (res) => {
-  return res.status(500).json({ error: true, msg: "Internal server error" });
+const internalError = (res, msg = "Internal server error") => {
+  return res.status(500).json({ error: true, msg });
 };
 
 module.exports = internalError;

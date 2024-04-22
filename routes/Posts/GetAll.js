@@ -24,6 +24,7 @@ const getAll = async (req, res) => {
         "likes",
         "-posts -followers -following -liked_posts -password -posts"
       )
+      .populate("poll")
       .exec();
     return res.json({ posts });
   } catch (e) {

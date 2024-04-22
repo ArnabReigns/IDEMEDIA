@@ -7,6 +7,7 @@ const postSchema = new mongoose.Schema({
   img: String,
   username: String,
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  poll: { type: mongoose.Schema.Types.ObjectId, ref: "MediaPoll" },
   caption: String,
   type: { type: String, default: "Media" },
   likes: {
