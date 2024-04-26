@@ -3,7 +3,7 @@ const User = require("../../models/UserModel");
 const internalError = require("../../utils/InternalError");
 
 const CreatePoll = async (req, res) => {
-  const { question, user, options } = req.body;
+  const { question, user, options, duration } = req.body;
 
   try {
     const owner = await User.findOne({ _id: user });
@@ -11,6 +11,7 @@ const CreatePoll = async (req, res) => {
       const poll = await new MediaPoll({
         question,
         options,
+        duration
       }).save();
       return res
         .status(201)
