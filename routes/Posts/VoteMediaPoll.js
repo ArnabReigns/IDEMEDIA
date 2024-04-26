@@ -11,8 +11,7 @@ const VotePoll = async (req, res) => {
       let media_poll = await MediaPoll.findById(poll);
       if (!media_poll) throw new Error("Invalid Poll ID");
       // Checking whether the user  has already voted or not
-      console.log(media_poll.voters[user]);
-      if (media_poll.voters[user] != undefined) 
+      if (media_poll.voters.get(user) != undefined) 
         return internalError(res, "You have already cast your vote.");
 
       media_poll.options[option].votes++;
