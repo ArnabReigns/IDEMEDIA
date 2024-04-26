@@ -13,10 +13,7 @@ const mediaPoll = new mongoose.Schema({
       votes: { type: Number, default: 0 },
     },
   ],
-  voters: {
-    type: Array,
-    ref: "User",
-  },
+  voters:  { type: Map, of: Number, default: new Map() },
 });
 
 const MediaPoll = mongoose.model("MediaPoll", mediaPoll);
